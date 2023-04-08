@@ -4,7 +4,7 @@ project(testlibpd)
 set(CMAKE_CXX_STANDARD 17)
 
 # pthreads-win32
-
+include_directories(3rd_party/pthread-win32)
 add_subdirectory(3rd_party/pthread-win32)
 
 # libpd
