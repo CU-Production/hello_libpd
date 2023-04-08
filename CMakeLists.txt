@@ -4,8 +4,7 @@ project(testlibpd)
 set(CMAKE_CXX_STANDARD 17)
 
 # pthreads-win32
-set(PTHREADS_INCLUDE_DIR 3rd_party/pthread-win32)
-set(CMAKE_THREAD_LIBS_INIT ${CMAKE_BINARY_DIR}/pthreadVC3.lib)
+
 add_subdirectory(3rd_party/pthread-win32)
 
 # libpd
@@ -21,3 +20,10 @@ target_link_libraries(testlibpd-cppapi PRIVATE libpd)
 target_include_directories(testlibpd-cppapi
         PRIVATE 3rd_party/libpd/libpd_wrapper
         PRIVATE 3rd_party/libpd/cpp)
+
+add_executable(libpd-miniaudio libpd-miniaudio.cpp)
+target_link_libraries(libpd-miniaudio PRIVATE libpd)
+target_include_directories(libpd-miniaudio
+        PRIVATE 3rd_party/libpd/libpd_wrapper
+        PRIVATE 3rd_party/libpd/cpp
+        PRIVATE 3rd_party/miniaudio)

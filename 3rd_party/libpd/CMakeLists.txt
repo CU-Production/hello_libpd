@@ -8,8 +8,10 @@ option(PD_LOCALE "Set the LC_NUMERIC number format to the default C locale" ON)
 option(PD_BUILD_C_EXAMPLES "Builds C API example programs" OFF)
 
 if (MSVC)
-    set(CMAKE_THREAD_LIBS_INIT CACHE PATH "Path to pthreads library binary file (ex. C:/src/vcpkg/packages/pthreads_x64-windows/lib/pthreadVC3.lib)")
-    set(PTHREADS_INCLUDE_DIR CACHE PATH "Path to folder with pthreads library header files (ex. C:/src/vcpkg/packages/pthreads_x64-windows/include)")
+#    set(CMAKE_THREAD_LIBS_INIT CACHE PATH "Path to pthreads library binary file (ex. C:/src/vcpkg/packages/pthreads_x64-windows/lib/pthreadVC3.lib)")
+#    set(PTHREADS_INCLUDE_DIR CACHE PATH "Path to folder with pthreads library header files (ex. C:/src/vcpkg/packages/pthreads_x64-windows/include)")
+    set(PTHREADS_INCLUDE_DIR 3rd_party/pthread-win32)
+    set(CMAKE_THREAD_LIBS_INIT ${CMAKE_BINARY_DIR}/pthreadVC3.lib)
     # We need pthreads.
     # Please provide the path to the pthreads library include path and
     # the path to the pthread library by specifying the following arguments
@@ -246,11 +248,13 @@ elseif(WIN32)
 endif()
 #target_link_libraries(libpd PUBLIC ${CMAKE_THREAD_LIBS_INIT})
 # AICDG patch
+# PATCH begin
 if(MSVC)
     target_link_libraries(libpd PUBLIC libpthreadVC3)
     target_include_directories(libpd PUBLIC ../pthread-win32)
 endif()
 target_include_directories(libpd PUBLIC pure-data/src)
+# PATCH end
 
 if(NOT MSVC AND NOT APPLE)
     find_library(M_LIBRARIES m)
