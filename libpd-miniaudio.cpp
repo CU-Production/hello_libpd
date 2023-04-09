@@ -56,6 +56,8 @@ int main()
     deviceConfig.playback.format = ma_format_f32;
     deviceConfig.playback.channels = 2;
     deviceConfig.sampleRate = 48000;
+    deviceConfig.noFixedSizedCallback = false;
+    deviceConfig.periodSizeInFrames = 64;
     deviceConfig.dataCallback = audio_callback;
     deviceConfig.pUserData = &lpd;
 
